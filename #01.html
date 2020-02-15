@@ -48,16 +48,16 @@ var root = document.documentElement;
 var mouseX = evt.clientX - rect.left - root.scrollLeft;
 var mouseY = evt.clientY - rect.top - root.scrollTop;
 return {	x:mouseX,
-	y:mouseY
+		y:mouseY
 } ;}
 
 
 function paddle2AI(){
 if(paddle2Y > ballY){
-paddle2Y += 6;
+paddle2Y += 0.1;
 }
 else if(paddle2Y < ballY){
-paddle2Y -= 6;
+paddle2Y -= 0.1;
 }
 }
 	
