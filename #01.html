@@ -56,7 +56,7 @@ function paddle2AI(){
 if(paddle2Y > ballY){
 paddle2Y += 6;
 }
-if(paddle2Y < ballY){
+else if(paddle2Y < ballY){
 paddle2Y -= 6;
 }
 }
@@ -64,7 +64,7 @@ paddle2Y -= 6;
 	
 	
 function ballposition(){
-
+padddle2AI();
 ballX += ballmovementx;
 ballY += ballmovementy;
 
