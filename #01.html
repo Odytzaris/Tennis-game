@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>
+Tennis Game
+</title>
+</head>
+<body>
+<canvas id = 'gameCanvas' width = 1500 height = 700></canvas>
+<script>
+var canvas;
+var canvasContext;
+var ballX = 10;
+var ballY = 10;
+var framespersecond = 5000; 	
+var ballmovementx = 4;
+var ballmovementy = 2.5;
+var paddle1Y = 325;
+var paddleheight = 100;
+var paddlethikness = 10;
+var paddle2Y = 325;
+
+
+window.onload = function() {
+
+
+canvas = document.getElementById('gameCanvas');
+canvasContext = canvas.getContext('2d');
+
+
+setInterval(function() {
+ballposition();
+Graphics();
+}
+, 1);
+
+
+canvas.addEventListener('mousemove',function(evt){
+var mousepos = calcmousepos(evt);
+paddle1Y = mousepos.y  - (paddleheight / 2);
+});
+
+
+}
+
+function calcmousepos(evt){
+var rect = canvas.getBoundingClientRect();
+var root = document.documentElement;
+var mouseX = evt.clientX - rect.left - root.scrollLeft;
+var mouseY = evt.clientY - rect.top - root.scrollTop;
+return {	x:mouseX,
+	y:mouseY
+} ;}
+
+
+function ballposition(){
+ballX += ballmovementx;
+ballY += ballmovementy;
+
+if(ballX > canvas.width - 6){
+if(ballY > paddle2Y && ballY < paddle2Y + paddleheight){
+ballmovementx= -ballmovementx;
+ballmovementx -= 0.1;
+}
+else{
+ballmovementx= -ballmovementx;
+ballmovementx -= 0.1;
+ballX = canvas.width  / 2;
+}
+}
+
+
+if(ballX < 6){								
+if(ballY > paddle1Y && ballY < paddle1Y + paddleheight){
+ballmovementx= -ballmovementx;
+ballmovementx += 0.1;
+}
+else{
+ballX = canvas.width / 2;
+ballmovementx= -ballmovementx;
+ballmovementx += 0.1;
+}
+}
+
+
+if(ballY > canvas.height - 6){
+ballmovementy= -ballmovementy;
+}
+
+
+if(ballY < 6){
+ballmovementy= -ballmovementy;
+}
+}
+
+
+function Graphics(){
+
+//BACKGROUND
+colorRect(0,0,canvas.width,canvas.height,'black');
+
+//BALL
+colorCircle(ballX,ballY,12,'white');
+
+//PADDLE 1
+colorRect(0,paddle1Y,10,paddleheight,'white');
+
+//PADDLE 2
+colorRect(canvas.width - paddlethikness,paddle2Y,paddlethikness,paddleheight,'white');
+}
+
+
+function colorRect(leftx,topy,width,height,drawcolor){
+canvasContext.fillStyle = drawcolor ;
+canvasContext.fillRect(leftx,topy,width,height);
+}
+
+
+function colorCircle(leftX,topY,radius,color){
+canvasContext.fillStyle = color;
+canvasContext.beginPath();
+canvasContext.arc(leftX,topY,radius,0,Math.PI * 2,color,true);
+canvasContext.fill();
+}
+</script>
+</body>
+</html> 
+
